@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { BaseAppComponent } from '../core/base.component';
 import { RepoFileLoader } from '../core/repo-providers/repo-providers.interfaces';
 import { RepoProvidersService } from '../core/repo-providers/repo-providers.service';
+import { CookbookService } from '../core/services/cookbook/cookbook.service';
 import { CookbookInvalidReasons } from './cookbook.interfaces';
 
 @Component({
@@ -11,8 +12,9 @@ import { CookbookInvalidReasons } from './cookbook.interfaces';
   templateUrl: './cookbook.component.html',
   styleUrls: ['./cookbook.component.scss']
 })
-export class CookbookComponent extends BaseAppComponent implements OnInit {
+export class CookbookComponent extends BaseAppComponent implements OnInit, OnDestroy {
   constructor(private repoProvidersService: RepoProvidersService,
+    private cookbookService: CookbookService,
     private route: ActivatedRoute) {
     super();
   }
@@ -46,10 +48,10 @@ export class CookbookComponent extends BaseAppComponent implements OnInit {
    * @param repoSlug
    */
   public async loadCookbook(repoFileLoader: RepoFileLoader): Promise<void> {
-    // TODO:
-    if (!await repoFileLoader('README.md')) {
+    try {
+      await this.cookbookService.init(repoFileLoader);
+    } catch (error) {
       this.invalidCookbook(CookbookInvalidReasons.REPO_SLUG);
-      return;
     }
 
     this.loading = false;
@@ -61,5 +63,13 @@ export class CookbookComponent extends BaseAppComponent implements OnInit {
   protected invalidCookbook(reason: CookbookInvalidReasons): void {
     this.invalidReason = reason;
     this.loading = false;
+  }
+
+  /**
+   * Destroy cookbook
+   */
+  public override ngOnDestroy(): void {
+    this.cookbookService.reset();
+    super.ngOnDestroy();
   }
 }

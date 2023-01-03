@@ -8,12 +8,13 @@ import { TuiButtonModule } from '@taiga-ui/core';
 import { TuiAlertModule } from '@taiga-ui/core';
 import { TuiRootModule } from '@taiga-ui/core';
 import { TuiNotificationModule } from '@taiga-ui/core';
+import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 
 /**
  * List of shared components across the app
  */
 const SharedComponents: any[] = [
-
+  RecipeCardComponent,
 ];
 
 /**

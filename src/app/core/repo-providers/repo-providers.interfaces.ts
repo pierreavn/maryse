@@ -1,4 +1,4 @@
-export type RepoFileLoader = (path: string) => Promise<string | undefined>;
+export type RepoFileLoader = (path: string) => Promise<string | object | undefined>;
 
 export interface RepoProvider {
   readonly key: string;

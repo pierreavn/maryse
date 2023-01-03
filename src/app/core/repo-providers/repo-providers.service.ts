@@ -1,6 +1,9 @@
 import { Injectable, inject } from "@angular/core";
+import * as yaml from "js-yaml";
+
 import { RepoFileLoader, RepoProvider } from "./repo-providers.interfaces";
 import { GithubRepoProvider } from "./providers/github.repo-provider";
+
 
 /**
  * Repository Providers Service
@@ -53,7 +56,16 @@ export class RepoProvidersService {
   public getFileLoader(providerKey: string, slugParts: string[]): RepoFileLoader | null {
     const provider = this.getProviderFromKey(providerKey);
     if (provider) {
-      return provider.getFileLoader(slugParts);
+      return async (path: string): Promise<string | object | undefined> => {
+        const data = await provider.getFileLoader(slugParts)(path);
+
+        // Parse YML to JSON
+        if (data && (path.endsWith('.yml') || path.endsWith('.yaml'))) {
+          return yaml.load(data as string) as object;
+        } else {
+          return data;
+        }
+      };
     } else {
       return null;
     }
