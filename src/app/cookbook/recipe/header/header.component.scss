@@ -1,0 +1,17 @@
+tui-carousel {
+  width: 100%;
+  height: 14rem;
+
+  &::ng-deep .t-item {
+    padding: 0 !important;
+  }
+}
+
+.container {
+  margin-top: 1.5rem;
+  padding: 0 1.5rem;
+}
+
+h1 {
+  margin-bottom: 1.3rem;
+}

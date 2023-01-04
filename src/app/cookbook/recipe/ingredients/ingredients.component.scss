@@ -1,0 +1,17 @@
+.container {
+  padding: 0 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.yields {
+  display: flex;
+  align-items: center;
+  background-color: rgb(226, 226, 226);
+  border-radius: 5px;
+  padding: 1rem;
+}

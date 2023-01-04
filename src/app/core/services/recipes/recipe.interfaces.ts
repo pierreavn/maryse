@@ -13,9 +13,9 @@ export type Recipe = {
   };
   yields?: {
     amount?: number;
-    unit_singular: string;
+    unit: string;
     unit_plural?: string;
-  }[];
+  };
   ingredients?: {
     name: string;
     amount?: number;

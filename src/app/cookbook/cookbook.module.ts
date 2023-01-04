@@ -5,13 +5,15 @@ import { SharedModule } from '../shared/shared.module';
 import { CookbookComponent } from './cookbook.component';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
     CookbookComponent,
     SearchComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     SharedModule,

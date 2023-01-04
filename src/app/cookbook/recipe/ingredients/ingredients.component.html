@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="header">
+    <!-- Yields -->
+    <div class="yields" *ngIf="hasYields">
+      <i-tabler name="minus" (click)="removeYieldsAmount()"></i-tabler>
+      <div>
+        {{ yieldsAmount }}&nbsp;{{ yieldsAmount > 1 ? yieldsUnitPlural : yieldsUnitSingular }}
+      </div>
+      <i-tabler name="plus" (click)="addYieldsAmount()"></i-tabler>
+    </div>
+
+    <!-- Units -->
+    <div class="units">
+      Convert
+    </div>
+  </div>
+
+  <!-- Ingredients -->
+  <div class="ingredients" *ngIf="recipe.ingredients && recipe.ingredients.length > 0">
+
+  </div>
+</div>

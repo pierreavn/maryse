@@ -1,5 +1,9 @@
 <div class="cookbook">
-  <router-outlet *ngIf="!invalidReason && !loading"></router-outlet>
+  <!-- Cookbook -->
+  <ng-container *ngIf="!invalidReason && !loading">
+    <app-cookbook-header></app-cookbook-header>
+    <router-outlet ></router-outlet>
+  </ng-container>
 
   <!-- Loader -->
   <div *ngIf="loading" class="loader">

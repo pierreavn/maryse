@@ -1,0 +1,43 @@
+<tui-carousel
+  [draggable]="true"
+  [itemsCount]="pictures.length"
+  [(index)]="pictureIndex">
+  <ng-container *ngFor="let picture of pictures; let i = index">
+    <img
+      *tuiItem
+      draggable="false"
+      [src]="picture"
+      class="item item_active" />
+  </ng-container>
+</tui-carousel>
+
+<div class="container">
+  <h1 class="tui-text_h5">
+    {{ recipe.name }}
+  </h1>
+
+  <tui-badge
+    *ngIf="recipe.category"
+    status="error"
+    [value]="recipe.category"
+    class="tui-space_right-2">
+    <i-tabler name="tools-kitchen-2"></i-tabler>
+  </tui-badge>
+
+  <tui-badge
+    *ngIf="recipe.type"
+    status="success"
+    [value]="recipe.type"
+    class="tui-space_right-2">
+    <i-tabler name="flag"></i-tabler>
+  </tui-badge>
+
+  <tui-badge
+    *ngIf="recipe.difficulty"
+    status="info"
+    [value]="recipe.difficulty"
+    class="tui-space_right-2">
+    <i-tabler name="chef-hat"></i-tabler>
+  </tui-badge>
+</div>
+

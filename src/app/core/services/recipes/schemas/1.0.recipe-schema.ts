@@ -13,9 +13,9 @@ type RecipeData_1_0 = {
   };
   yields?: {
     amount?: number;
-    unit_singular: string;
+    unit: string;
     unit_plural?: string;
-  }[];
+  };
   ingredients?: {
     name: string;
     amount?: number;
@@ -54,16 +54,13 @@ export class RecipeSchema_1_0 implements RecipeSchema {
         },
       },
       yields: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            amount: { type: "number" },
-            unit_singular: { type: "string" },
-            unit_plural: { type: "string" },
-          },
-          required: ["unit_singular"],
+        type: "object",
+        properties: {
+          amount: { type: "number" },
+          unit: { type: "string" },
+          unit_plural: { type: "string" },
         },
+        required: ["unit"],
       },
       ingredients: {
         type: "array",

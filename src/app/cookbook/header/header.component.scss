@@ -1,0 +1,9 @@
+@import "src/styles/variables.scss";
+
+header {
+  height: $header-height;
+  background-color: red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
