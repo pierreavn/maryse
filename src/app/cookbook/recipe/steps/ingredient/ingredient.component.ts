@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 import { BaseAppComponent } from 'src/app/core/base.component';
 import { Recipe, RecipeIngredient } from 'src/app/core/services/recipes/recipe.interfaces';
@@ -18,9 +19,12 @@ export class IngredientComponent extends BaseAppComponent implements OnInit {
 
   displayName!: string;
 
+  displayBadge?: string;
+
   ingredient?: RecipeIngredient;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService,
+    private translate: TranslateService) {
     super();
   }
 
@@ -35,6 +39,15 @@ export class IngredientComponent extends BaseAppComponent implements OnInit {
       .pipe(takeUntil(this.destroyed$))
       .subscribe(ingredients => {
         this.ingredient = ingredients.find(ingredient => ingredient.name === this.options[0]);
+        if (!this.ingredient) {
+          return;
+        }
+
+        if (this.ingredient.unit) {
+          this.displayBadge = `${this.ingredient.amount}${this.translate.instant(`common.units.${this.ingredient.unit}`)}`;
+        } else {
+          this.displayBadge = `x ${this.ingredient.amount}`;
+        }
       })
   }
 }

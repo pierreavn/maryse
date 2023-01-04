@@ -1,3 +1,26 @@
 {
-
+  "common": {
+    "units": {
+      "l": "l",
+      "dl": "dl",
+      "cl": "cl",
+      "ml": "ml",
+      "kg": "kg",
+      "g": "g",
+      "tablespoon": " cuil. à soupe",
+      "teaspoon": " cuil. à café",
+      "sachet": " sachet",
+      "pinch": " pincée"
+    },
+    "temperatures": {
+      "c": "°C",
+      "f": "°F"
+    }
+  },
+  "recipe": {
+    "steps": {
+      "title": "Préparation",
+      "stepNo": "Étape {{i}}"
+    }
+  }
 }

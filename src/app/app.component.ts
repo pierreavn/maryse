@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'maryse';
 
   constructor(translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+    translate.setDefaultLang('fr');
+    translate.use('fr');
   }
 }

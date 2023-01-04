@@ -6,7 +6,15 @@
       "cl": "cl",
       "ml": "ml",
       "kg": "kg",
-      "g": "g"
+      "g": "g",
+      "tablespoon": " table spoon",
+      "teaspoon": " tea spoon",
+      "sachet": " sachet",
+      "pinch": " pinch"
+    },
+    "temperatures": {
+      "c": "°C",
+      "f": "°F"
     }
   },
   "recipe": {

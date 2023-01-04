@@ -76,7 +76,11 @@ export class RecipeService {
       return {
         reason: 'errors',
         version: latestSchema.version,
-        errors: ajv.errors ? ajv.errors.filter(error => !!error).map(error => error.message!) : [],
+        errors: ajv.errors
+          ? ajv.errors
+              .filter(error => !!error)
+              .map(error => `${error.instancePath} ${error.message}`)
+          : [],
       }
     }
   }
@@ -96,6 +100,8 @@ export class RecipeService {
           let newAmount = ingredient.initialAmount * (newQuantity / (recipe.yields?.amount ?? 1));
           if (newAmount >= 10) {
             newAmount = Math.round(newAmount);
+          } else {
+            newAmount = Math.round(newAmount * 10) / 10;
           }
 
           return {

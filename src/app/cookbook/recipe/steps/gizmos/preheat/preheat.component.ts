@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Recipe } from 'src/app/core/services/recipes/recipe.interfaces';
 import { GizmoComponent } from '../../steps.interfaces';
 
 @Component({
@@ -10,8 +9,13 @@ import { GizmoComponent } from '../../steps.interfaces';
 export class PreheatComponent implements GizmoComponent, OnInit {
   @Input() options!: string[];
 
-  constructor() { }
+  temperature!: string;
 
-  ngOnInit(): void {
+  unit!: string;
+
+  public ngOnInit(): void {
+    const value = this.options[1] ?? '';
+    this.temperature = value.slice(0, -1);
+    this.unit = value.slice(-1);
   }
 }

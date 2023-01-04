@@ -7,6 +7,7 @@ import {
   IconToolsKitchen2,
   IconPlus,
   IconMinus,
+  IconCooker,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
@@ -16,6 +17,7 @@ const icons = {
   IconToolsKitchen2,
   IconPlus,
   IconMinus,
+  IconCooker,
 };
 
 @NgModule({

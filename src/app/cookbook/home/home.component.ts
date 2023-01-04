@@ -14,6 +14,5 @@ export class HomeComponent implements OnInit {
 
   public ngOnInit(): void {
     this.recipes = this.cookbookService.cookbook$.value!.all;
-    console.log(this.cookbookService.cookbook$.value)
   }
 }

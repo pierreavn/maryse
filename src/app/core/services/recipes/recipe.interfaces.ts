@@ -51,4 +51,8 @@ export enum RecipeIngredientUnit {
   ML = "ml",
   KG = "kg",
   G  = "g",
+  TABLESPOON = "tablespoon",
+  TEASPOON = "teaspoon",
+  SACHET = "sachet",
+  PINCH = "pinch",
 }

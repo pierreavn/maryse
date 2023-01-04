@@ -1,1 +1,5 @@
-<span>--------{{ options[1] }}</span>
+<tui-badge
+  status="info"
+  [value]="temperature + ' ' + (('common.temperatures.' + unit) | translate)">
+  <i-tabler name="cooker"></i-tabler>
+</tui-badge>
