@@ -33,10 +33,12 @@ export class CookbookComponent extends BaseAppComponent implements OnInit, OnDes
             params['repoOwner'],
             ...params['repoName'].split(this.repoProvidersService.slugDelimiter),
           ],
-        )
+        );
+
+        const href = `/${params['repoProvider']}/${params['repoOwner']}/${params['repoName']}`;
 
         if (repoFileLoader) {
-          this.loadCookbook(repoFileLoader);
+          this.loadCookbook(href, repoFileLoader);
         } else {
           this.invalidCookbook(CookbookInvalidReasons.REPO_SLUG);
         }
@@ -47,11 +49,11 @@ export class CookbookComponent extends BaseAppComponent implements OnInit, OnDes
    * Load the cookbook
    * @param repoSlug
    */
-  public async loadCookbook(repoFileLoader: RepoFileLoader): Promise<void> {
+  public async loadCookbook(href: string, repoFileLoader: RepoFileLoader): Promise<void> {
     try {
-      await this.cookbookService.init(repoFileLoader);
+      await this.cookbookService.init(href, repoFileLoader);
     } catch (error) {
-      this.invalidCookbook(CookbookInvalidReasons.REPO_SLUG);
+      this.invalidCookbook(CookbookInvalidReasons.COOKBOOK_FORMAT);
     }
 
     this.loading = false;

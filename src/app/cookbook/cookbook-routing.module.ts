@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, UrlSegment } from '@angular/router';
 import { CookbookComponent } from './cookbook.component';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
@@ -19,7 +19,21 @@ const routes: Routes = [
         component: SearchComponent,
       },
       {
-        path: 'recipe/:recipe',
+        matcher: (url) => {
+          if (url.length >= 2 && url[0].path === 'recipe') {
+            return {
+              consumed: url,
+              posParams: {
+                recipe: new UrlSegment(
+                  url.slice(1).map(segment => segment.path).join('/'),
+                  {}
+                )
+              }
+            };
+          }
+
+          return null;
+        },
         loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule),
       },
       {

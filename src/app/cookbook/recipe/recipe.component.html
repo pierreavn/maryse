@@ -1,1 +1,53 @@
-<p>recipe works!</p>
+<div class="recipe">
+  <!-- Recipe -->
+  <div *ngIf="recipe && !loading">
+    <h1>{{ recipe.name }}</h1>
+    <p>Categorie : {{recipe.category}}</p>
+    <p>Type : {{recipe.type}}</p>
+    <p>Difficulte : {{recipe.difficulty}}</p>
+
+    <!-- <img *ngFor="let picture of (recipe.pictures ?? [])" [src]="picture"> -->
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader">
+    Loading...
+  </div>
+
+  <!-- Invalid Recipe -->
+  <div *ngIf="!recipe && !loading" class="invalid">
+    <tui-notification
+      *ngIf="initError && initError.reason === 'errors'"
+      status="error"
+      class="tui-space_top-4">
+      [v{{initError.version}}] Invalid recipe<br/>
+      <ul>
+        <li *ngFor="let error of initError.errors">{{ error }}</li>
+      </ul>
+    </tui-notification>
+
+    <tui-notification
+      *ngIf="initError && initError.reason === 'not-found'"
+      status="error"
+      class="tui-space_top-4">
+      Recipe not found
+    </tui-notification>
+
+    <tui-notification
+      *ngIf="!initError"
+      status="error"
+      class="tui-space_top-4">
+      Unknown error
+    </tui-notification>
+  </div>
+
+  <br/>
+  <button
+    (click)="backToRecipes()"
+    tuiButton
+    type="button"
+    appearance="primary"
+    class="tui-space_right-3 tui-space_bottom-3">
+    Back to recipes
+  </button>
+</div>

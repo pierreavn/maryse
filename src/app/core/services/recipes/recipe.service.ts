@@ -1,33 +1,72 @@
+import { Injectable } from "@angular/core";
 import Ajv from "ajv";
+import { BehaviorSubject } from "rxjs";
+import { CookbookService } from "../cookbook/cookbook.service";
 
-import { RecipeParser_1_0 } from "./parsers/1.0.parser";
-import { RecipeData, RecipeParser } from "./recipe.interfaces";
+import { Recipe, RecipeInitError, RecipeSchema } from "./recipe.interfaces";
+import { RecipeSchema_1_0 } from "./schemas/1.0.recipe-schema";
 
+@Injectable({ providedIn: 'root' })
 export class RecipeService {
   /**
    * List of available parsers
    * (latest to oldest version)
    */
-  static readonly PARSERS: RecipeParser[] = [
-    new RecipeParser_1_0,
+  static readonly SCHEMAS: RecipeSchema[] = [
+    new RecipeSchema_1_0,
   ]
 
-  public readonly data: RecipeData;
+  public readonly recipe$ = new BehaviorSubject<Recipe | null>(null);
 
-  protected parser: RecipeParser;
+  constructor(private cookbookService: CookbookService) {}
 
-  get version(): string { return this.parser.version; }
+  /**
+   * Initialize recipe
+   * @param repoFileLoader
+   */
+  public async init(slug: string): Promise<RecipeInitError | null> {
+    this.reset();
 
-  constructor(rawRecipe: any, protected path: string) {
-    // Try to find valid parser version
-    const ajv = new Ajv();
-    this.parser = RecipeService.PARSERS
-      .find(parser => ajv.validate(parser.schema, rawRecipe))!;
-
-    if (this.parser) {
-      this.data = this.parser.parse(rawRecipe);
-    } else {
-      throw new Error("Invalid raw recipe");
+    if (!this.cookbookService.repoFileLoader) {
+      throw new Error("Cannot load recipe without repoFileLoader");
     }
+
+    // Load recipe data
+    const recipeData = await this.cookbookService.repoFileLoader(`recipes/${slug}.yml`);
+    if (!recipeData) {
+      return {
+        reason: 'not-found',
+        version: '',
+        errors: []
+      }
+    }
+
+    // Find latest schema
+    const ajv = new Ajv();
+    const schema = RecipeService.SCHEMAS
+      .find(schema => ajv.validate(schema.schema, recipeData));
+
+    if (schema) {
+      const recipe = schema.parse(recipeData);
+      this.recipe$.next(recipe);
+      return null;
+    } else {
+      // Find latest schema errors
+      const latestSchema = RecipeService.SCHEMAS[0];
+      ajv.validate(latestSchema.schema, recipeData);
+
+      return {
+        reason: 'errors',
+        version: latestSchema.version,
+        errors: ajv.errors ? ajv.errors.filter(error => !!error).map(error => error.message!) : [],
+      }
+    }
+  }
+
+  /**
+   * Reset recipe
+   */
+  public reset(): void {
+    this.recipe$.next(null);
   }
 }

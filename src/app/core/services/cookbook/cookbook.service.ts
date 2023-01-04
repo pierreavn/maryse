@@ -1,56 +1,50 @@
+import Ajv from "ajv";
 import { Injectable } from "@angular/core";
 import { RepoFileLoader } from "../../repo-providers/repo-providers.interfaces";
-import { RecipeService } from "../recipes/recipe.service";
-import { RecipesListFile } from "./cookbook.interfaces";
+import { Cookbook, CookbookSchema } from "./cookbook.interfaces";
+import { CookbookSchema_1_0 } from "./schemas/1.0.cookbook-schema";
+import { BehaviorSubject } from "rxjs";
 
 /**
  * Cookbook Service
  */
 @Injectable({ providedIn: 'root' })
 export class CookbookService {
-  public recipes: RecipeService[] = [];
+  /**
+   * List of available schemas
+   * (latest to oldest version)
+   */
+  static readonly SCHEMAS: CookbookSchema[] = [
+    new CookbookSchema_1_0,
+  ];
 
-  public failedRecipes: Record<string, string> = {};
+  public readonly cookbook$ = new BehaviorSubject<Cookbook | null>(null);
 
-  protected repoFileLoader?: RepoFileLoader;
+  public repoFileLoader?: RepoFileLoader;
 
   /**
    * Initialize cookbook
+   * @param href
    * @param repoFileLoader
    */
-  public async init(repoFileLoader: RepoFileLoader): Promise<void> {
+  public async init(href: string, repoFileLoader: RepoFileLoader): Promise<void> {
     this.reset();
     this.repoFileLoader = repoFileLoader;
 
-    // Load recipes listing
-    const recipesList = await this.repoFileLoader('recipes/recipes.yml') as RecipesListFile;
-    if (!recipesList?.recipes
-      || !Array.isArray(recipesList.recipes)
-      || !recipesList.recipes.every(recipe => typeof recipe === "string")) {
-        throw new Error("Invalid recipes list");
+    // Load cookbook data
+    const cookbookData = await this.repoFileLoader('cookbook.yml');
+
+    // Find latest schema
+    const ajv = new Ajv();
+    const schema = CookbookService.SCHEMAS
+      .find(schema => ajv.validate(schema.schema, cookbookData));
+
+    if (schema) {
+      const cookbook = schema.parse(cookbookData, href);
+      this.cookbook$.next(cookbook);
+    } else {
+      throw new Error("Invalid cookbook");
     }
-
-    // Load all recipes
-    const recipes = await Promise.all(
-      recipesList.recipes
-        .map(recipe => this.repoFileLoader?.(`recipes/${recipe}`))
-    );
-
-    // Register each recipe
-    recipesList.recipes
-      .forEach((recipePath, index) => {
-        const recipe = recipes[index];
-        if (recipe) {
-          try {
-            const recipeService = new RecipeService(recipe, recipePath);
-            this.recipes.push(recipeService);
-          } catch (error) {
-            this.failedRecipes[recipePath] = 'fail to parse';
-          }
-        } else {
-          this.failedRecipes[recipePath] = 'fail to load';
-        }
-      });
   }
 
   /**
@@ -58,7 +52,6 @@ export class CookbookService {
    */
   public reset(): void {
     this.repoFileLoader = undefined;
-    this.recipes = [];
-    this.failedRecipes = {};
+    this.cookbook$.next(null);
   }
 }

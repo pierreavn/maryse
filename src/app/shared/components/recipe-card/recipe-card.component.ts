@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RecipeService } from 'src/app/core/services/recipes/recipe.service';
+import { CookbookRecipe } from 'src/app/core/services/cookbook/cookbook.interfaces';
 
 @Component({
   selector: 'app-recipe-card',
@@ -8,7 +8,7 @@ import { RecipeService } from 'src/app/core/services/recipes/recipe.service';
   styleUrls: ['./recipe-card.component.scss']
 })
 export class RecipeCardComponent implements OnInit {
-  @Input() recipe!: RecipeService;
+  @Input() recipe!: CookbookRecipe;
 
   constructor(private router: Router) { }
 
@@ -16,7 +16,6 @@ export class RecipeCardComponent implements OnInit {
   }
 
   public openRecipe(): void {
-    this.router.navigate(['/xx']);
+    this.router.navigate([this.recipe._href]);
   }
-
 }

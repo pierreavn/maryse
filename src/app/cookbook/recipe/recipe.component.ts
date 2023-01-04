@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
-import { BaseAppComponent } from 'src/app/core/base.component';
+
+import { CookbookService } from '../../core/services/cookbook/cookbook.service';
+import { BaseAppComponent } from '../../core/base.component';
+import { Recipe, RecipeInitError } from '../../core/services/recipes/recipe.interfaces';
+import { RecipeService } from '../../core/services/recipes/recipe.service';
 
 @Component({
   selector: 'app-recipe',
@@ -9,13 +13,24 @@ import { BaseAppComponent } from 'src/app/core/base.component';
   styleUrls: ['./recipe.component.scss']
 })
 export class RecipeComponent extends BaseAppComponent implements OnInit {
-  recipeSlug?: string;
+  loading = true;
 
-  constructor(private route: ActivatedRoute) {
+  recipe: Recipe | null = null;
+
+  initError: RecipeInitError | null = null;
+
+  constructor(private route: ActivatedRoute,
+    private cookbookService: CookbookService,
+    private recipeService: RecipeService,
+    private router: Router) {
     super();
   }
 
   public ngOnInit(): void {
+    this.recipeService.recipe$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(recipe => this.recipe = recipe);
+
     this.route.params
       .pipe(takeUntil(this.destroyed$))
       .subscribe(params => {
@@ -27,7 +42,23 @@ export class RecipeComponent extends BaseAppComponent implements OnInit {
    * Load recipe data
    * @param slug
    */
-  public loadRecipe(slug: string): void {
-    this.recipeSlug = slug;
+  public async loadRecipe(slug: string): Promise<void> {
+    this.loading = true;
+
+    try {
+      this.initError = await this.recipeService.init(slug);
+    } catch (error) {
+      this.recipe = null;
+      console.error(error);
+    }
+
+    this.loading = false;
+  }
+
+  /**
+   * Go back to recipes list
+   */
+  public backToRecipes(): void {
+    this.router.navigate([this.cookbookService.cookbook$.value?._href]);
   }
 }
