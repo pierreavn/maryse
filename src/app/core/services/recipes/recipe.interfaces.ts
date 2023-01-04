@@ -19,7 +19,7 @@ export type Recipe = {
   ingredients?: {
     name: string;
     amount?: number;
-    unit?: string;
+    unit?: RecipeIngredientUnit;
   }[];
   steps?: string[];
   references?: string[];
@@ -36,3 +36,19 @@ export type RecipeInitError = {
   version: string;
   errors: string[];
 };
+
+export type RecipeIngredient = {
+  name: string;
+  initialAmount: number;
+  amount: number;
+  unit?: RecipeIngredientUnit;
+}
+
+export enum RecipeIngredientUnit {
+  L  = "l",
+  DL = "dl",
+  CL = "cl",
+  ML = "ml",
+  KG = "kg",
+  G  = "g",
+}

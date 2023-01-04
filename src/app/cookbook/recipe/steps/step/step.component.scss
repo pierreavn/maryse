@@ -1,0 +1,27 @@
+$step-content-offset: 1rem;
+$step-dot-radius: 6px;
+$step-dot-color: var(--tui-base-04);
+
+.step {
+  position: relative;
+  margin-bottom: 2rem;
+
+  &::before {
+    content: " ";
+    border-radius: 50%;
+    width: calc(2 * $step-dot-radius);
+    height: calc(2 * $step-dot-radius);
+    background-color: white;
+    border: 1px solid $step-dot-color;
+    position: absolute;
+    top: 5px;
+    left: calc(-#{$step-content-offset});
+    transform: translateX(-50%);
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: .5rem;
+  }
+}

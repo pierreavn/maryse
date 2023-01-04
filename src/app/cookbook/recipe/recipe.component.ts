@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { RecipeService } from '../../core/services/recipes/recipe.service';
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
-export class RecipeComponent extends BaseAppComponent implements OnInit {
+export class RecipeComponent extends BaseAppComponent implements OnInit, OnDestroy {
   loading = true;
 
   recipe: Recipe | null = null;
@@ -60,5 +60,10 @@ export class RecipeComponent extends BaseAppComponent implements OnInit {
    */
   public backToRecipes(): void {
     this.router.navigate([this.cookbookService.cookbook$.value?._href]);
+  }
+
+  public override ngOnDestroy(): void {
+    this.recipeService.reset();
+    super.ngOnDestroy();
   }
 }

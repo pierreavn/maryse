@@ -2,21 +2,23 @@
   <div class="header">
     <!-- Yields -->
     <div class="yields" *ngIf="hasYields">
-      <i-tabler name="minus" (click)="removeYieldsAmount()"></i-tabler>
-      <div>
-        {{ yieldsAmount }}&nbsp;{{ yieldsAmount > 1 ? yieldsUnitPlural : yieldsUnitSingular }}
+      <i-tabler name="minus" (click)="decreaseQuantity()"></i-tabler>
+      <div class="tui-text_body-m">
+        {{ quantity }}&nbsp;{{ quantity > 1 ? yieldsUnitPlural : yieldsUnitSingular }}
       </div>
-      <i-tabler name="plus" (click)="addYieldsAmount()"></i-tabler>
+      <i-tabler name="plus" (click)="increaseQuantity()"></i-tabler>
     </div>
 
     <!-- Units -->
     <div class="units">
-      Convert
+      <!-- TODO: Units -->
     </div>
   </div>
 
   <!-- Ingredients -->
-  <div class="ingredients" *ngIf="recipe.ingredients && recipe.ingredients.length > 0">
-
+  <div class="ingredients" *ngIf="ingredients.length > 0">
+    <div class="ingredient tui-text_body-m" *ngFor="let ingredient of ingredients">
+      <strong>{{ ingredient.amount }}<span *ngIf="ingredient.unit">{{ ("common.units." + ingredient.unit) | translate }}</span></strong> {{ ingredient.name }}
+    </div>
   </div>
 </div>

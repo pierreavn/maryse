@@ -1,3 +1,18 @@
 {
-
+  "common": {
+    "units": {
+      "l": "l",
+      "dl": "dl",
+      "cl": "cl",
+      "ml": "ml",
+      "kg": "kg",
+      "g": "g"
+    }
+  },
+  "recipe": {
+    "steps": {
+      "title": "Preparation",
+      "stepNo": "Step {{i}}"
+    }
+  }
 }

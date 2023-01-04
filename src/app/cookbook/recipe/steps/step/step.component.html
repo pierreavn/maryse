@@ -1,0 +1,27 @@
+<div class="step">
+  <div class="step__title tui-text_body-m">
+    {{ "recipe.steps.stepNo" | translate: {i: index+1} }}
+  </div>
+  <div class="step__content tui-text_body-m">
+    <ng-container *ngFor="let part of parts">
+      <!-- Text -->
+      <ng-container *ngIf="part.type === StepPartType.TEXT">
+        <span>{{ part.raw }}</span>
+      </ng-container>
+
+      <!-- Ingredient -->
+      <ng-container *ngIf="part.type === StepPartType.INGREDIENT">
+        <app-step-ingredient
+          [recipe]="recipe"
+          [options]="part.options"
+          [label]="part.label">
+        </app-step-ingredient>
+      </ng-container>
+
+      <!-- Gizmo -->
+      <ng-container *ngIf="part.type === StepPartType.GIZMO">
+        <ng-template #gizmoRef></ng-template>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

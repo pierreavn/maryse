@@ -1,0 +1,7 @@
+@import "src/styles/variables.scss";
+
+.cookbook {
+  background-color: rgba(244, 87, 37, 0.02);
+  min-height: 100vh;
+  padding-top: $header-height;
+}

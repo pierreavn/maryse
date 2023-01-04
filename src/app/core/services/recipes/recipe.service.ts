@@ -3,7 +3,7 @@ import Ajv from "ajv";
 import { BehaviorSubject } from "rxjs";
 import { CookbookService } from "../cookbook/cookbook.service";
 
-import { Recipe, RecipeInitError, RecipeSchema } from "./recipe.interfaces";
+import { Recipe, RecipeIngredient, RecipeInitError, RecipeSchema } from "./recipe.interfaces";
 import { RecipeSchema_1_0 } from "./schemas/1.0.recipe-schema";
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +17,10 @@ export class RecipeService {
   ]
 
   public readonly recipe$ = new BehaviorSubject<Recipe | null>(null);
+
+  public readonly quantity$ = new BehaviorSubject<number>(1);
+
+  public readonly ingredients$ = new BehaviorSubject<RecipeIngredient[]>([]);
 
   constructor(private cookbookService: CookbookService) {}
 
@@ -49,6 +53,20 @@ export class RecipeService {
     if (schema) {
       const recipe = schema.parse(recipeData);
       this.recipe$.next(recipe);
+
+      // Set quantity
+      this.quantity$.next(recipe.yields?.amount ?? 1);
+
+      // Set ingredients
+      this.ingredients$.next(
+        (recipe.ingredients ?? []).map(ingredient => ({
+          name: ingredient.name,
+          initialAmount: ingredient.amount ?? 1,
+          amount: ingredient.amount ?? 1,
+          unit: ingredient.unit,
+        }))
+      );
+
       return null;
     } else {
       // Find latest schema errors
@@ -64,9 +82,37 @@ export class RecipeService {
   }
 
   /**
+   * Set yields quantity
+   * @param newQuantity
+   */
+  public setQuantity(newQuantity: number): void {
+    const recipe = this.recipe$.value;
+    if (recipe && newQuantity >= 1) {
+      this.quantity$.next(newQuantity);
+
+      // Update ingredients amounts
+      this.ingredients$.next([
+        ...this.ingredients$.value.map(ingredient => {
+          let newAmount = ingredient.initialAmount * (newQuantity / (recipe.yields?.amount ?? 1));
+          if (newAmount >= 10) {
+            newAmount = Math.round(newAmount);
+          }
+
+          return {
+            ...ingredient,
+            amount: newAmount,
+          };
+        })
+      ]);
+    }
+  }
+
+  /**
    * Reset recipe
    */
   public reset(): void {
     this.recipe$.next(null);
+    this.quantity$.next(1);
+    this.ingredients$.next([]);
   }
 }

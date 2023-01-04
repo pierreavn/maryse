@@ -1,3 +1,14 @@
-<div class="recipe" style="border: 1px solid gray;" (click)="openRecipe()">
-  {{ recipe.name }}
-</div>
+<tui-island size="l" (click)="openRecipe()">
+  <div class="tui-island__content">
+      <div>
+        <img
+          *ngIf="recipe.pictures && recipe.pictures.length > 0"
+                    class="image"
+                    [src]="recipe.pictures[0]"
+                /><br/>
+          <p class="tui-island__category" *ngIf="recipe.category">{{ recipe.category }}</p>
+          <h3 class="tui-island__title">{{ recipe.name }}</h3>
+      </div>
+  </div>
+</tui-island>
+

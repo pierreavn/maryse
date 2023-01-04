@@ -1,4 +1,4 @@
-import { Recipe, RecipeSchema } from "../recipe.interfaces";
+import { Recipe, RecipeIngredientUnit, RecipeSchema } from "../recipe.interfaces";
 
 type RecipeData_1_0 = {
   name: string;
@@ -19,7 +19,7 @@ type RecipeData_1_0 = {
   ingredients?: {
     name: string;
     amount?: number;
-    unit?: string;
+    unit?: RecipeIngredientUnit;
   }[];
   steps?: string[];
   references?: string[];
@@ -69,7 +69,10 @@ export class RecipeSchema_1_0 implements RecipeSchema {
           properties: {
             name: { type: "string" },
             amount: { type: "number" },
-            unit: { type: "string" },
+            unit: {
+              type: "string",
+              enum: Object.values(RecipeIngredientUnit),
+            },
           },
           required: ["name"],
         },

@@ -2,8 +2,15 @@
 
 header {
   height: $header-height;
-  background-color: red;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0px 2px 5px 0px rgb(0 0 0 / 10%);
 }

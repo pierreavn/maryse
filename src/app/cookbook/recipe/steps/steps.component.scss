@@ -1,0 +1,14 @@
+.container {
+  padding: 0 1.5rem;
+}
+
+.steps {
+  margin-top: 2rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--tui-base-04);
+
+  & app-recipe-step {
+    display: block;
+    transform:  translateY(-.6rem);
+  }
+}

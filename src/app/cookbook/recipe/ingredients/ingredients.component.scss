@@ -1,3 +1,5 @@
+@import "src/styles/variables.scss";
+
 .container {
   padding: 0 1.5rem;
 }
@@ -10,8 +12,20 @@
 
 .yields {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  background-color: rgb(226, 226, 226);
-  border-radius: 5px;
-  padding: 1rem;
+  background-color: var(--tui-neutral-bg);
+  border-radius: $border-radius;
+  padding: .6rem 1rem;
+  min-width: 9rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+
+  & i-tabler {
+    stroke-width: 1.5px;
+  }
+}
+
+.ingredient {
+  padding: .5rem 0;
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TuiBadgeModule, TuiCarouselModule, TuiInputModule } from '@taiga-ui/kit';
+import { TuiBadgeModule, TuiCarouselModule, TuiInputModule, TuiIslandModule, TuiStepperModule } from '@taiga-ui/kit';
 import { TuiButtonModule, TuiLoaderModule } from '@taiga-ui/core';
 import { TuiAlertModule } from '@taiga-ui/core';
 import { TuiRootModule } from '@taiga-ui/core';
@@ -37,6 +37,8 @@ const SharedModules: any[] = [
   TuiLoaderModule,
   TuiCarouselModule,
   TuiBadgeModule,
+  TuiStepperModule,
+  TuiIslandModule,
 
   // Others
   TranslateModule,

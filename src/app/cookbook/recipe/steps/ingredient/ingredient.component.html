@@ -1,0 +1,1 @@
+<span>{{ displayName }}<ng-container *ngIf="ingredient">&nbsp;(<ng-container *ngIf="!ingredient.unit"><small>x</small></ng-container>{{ ingredient.amount }}<ng-container *ngIf="ingredient.unit">{{ ("common.units." + ingredient.unit) | translate }}</ng-container>)</ng-container></span>
