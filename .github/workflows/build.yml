@@ -19,7 +19,7 @@ jobs:
         run: npm ci
       - name: Build Angular
         run: npm run build
-      - uses: actions/upload-artifact@main
+      - uses: actions/upload-pages-artifact@main
         with:
           name: github-pages
           path: dist
