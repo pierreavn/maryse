@@ -1,7 +1,7 @@
 {
-  "name": "maryse",
+  "name": "Maryse",
   "short_name": "maryse",
-  "theme_color": "#1976d2",
+  "theme_color": "#FDFBFA",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
