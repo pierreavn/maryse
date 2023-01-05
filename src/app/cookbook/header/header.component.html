@@ -1,4 +1,5 @@
 <header *ngIf="cookbook">
+  <div *ngIf="!recipe"></div>
   <i-tabler *ngIf="recipe" name="chevron-left" (click)="goBack()"></i-tabler>
   <div>Maryse</div>
   <div></div>

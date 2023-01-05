@@ -34,6 +34,13 @@ export class HeaderComponent extends BaseAppComponent implements OnInit {
   }
 
   /**
+   * Go back to landing page
+   */
+  public goLanding(): void {
+    this.router.navigate(['/']);
+  }
+
+  /**
    * Go back to previous screen
    */
   public goBack(): void {

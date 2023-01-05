@@ -15,6 +15,8 @@ export class LandingComponent {
 
   isInvalid = false;
 
+  demoCookbook = 'https://github.com/pierreavn/recipes';
+
   constructor(private repoProvidersService: RepoProvidersService,
     private router: Router) {}
 
@@ -34,5 +36,13 @@ export class LandingComponent {
         this.isInvalid = true;
       }, 200);
     }
+  }
+
+  /**
+   * Open demonstration cookbook
+   */
+  public openDemo() {
+    this.form.get('repoUrl')?.setValue(this.demoCookbook);
+    this.submit();
   }
 }

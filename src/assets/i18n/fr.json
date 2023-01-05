@@ -17,6 +17,12 @@
       "f": "°F"
     }
   },
+  "landing": {
+    "intro": "Bienvenue sur le livre de recettes Maryse !",
+    "repoUrl": "Entrez l'URL de votre repository Maryse",
+    "openCookbook": "Ouvrir le livre de recettes",
+    "openDemo": "Voir la démonstration"
+  },
   "recipe": {
     "steps": {
       "title": "Préparation",
