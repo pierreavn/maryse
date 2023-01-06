@@ -1,8 +1,8 @@
 {
   "name": "Maryse",
-  "short_name": "maryse",
-  "theme_color": "#FDFBFA",
-  "background_color": "#fafafa",
+  "short_name": "Maryse",
+  "theme_color": "#FAFBF9",
+  "background_color": "#FAFBF9",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
