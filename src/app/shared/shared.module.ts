@@ -12,6 +12,14 @@ import { TuiNotificationModule } from '@taiga-ui/core';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { IconsModule } from './icons.module';
 import { RecipeSectionComponent } from './components/recipe-section/recipe-section.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+// Note we need a separate function as it's required
+// by the AOT compiler.
+export function playerFactory() {
+  return player;
+}
 
 /**
  * List of shared components across the app
@@ -55,10 +63,12 @@ const SharedModules: any[] = [
   ],
   imports: [
     ...SharedModules,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [
     ...SharedComponents,
     ...SharedModules,
+    LottieModule,
   ]
 })
 export class SharedModule { }

@@ -1,5 +1,8 @@
 {
   "common": {
+    "actions": {
+      "continue": "Continuer"
+    },
     "units": {
       "l": "l",
       "dl": "dl",
@@ -15,6 +18,12 @@
     "temperatures": {
       "c": "°C",
       "f": "°F"
+    }
+  },
+  "onboarding": {
+    "step1": {
+      "title": "Bienvenue sur Maryse !",
+      "description": "Tout d'abord, sélectionnez votre langue :"
     }
   },
   "landing": {

@@ -1,0 +1,32 @@
+<ng-lottie
+  width="100%"
+  [options]="{ path: '/assets/lottie/soup.json' }">
+</ng-lottie>
+<div class="container">
+  <h1 class="tui-text_h5">
+    {{ "onboarding.step1.title" | translate }}
+  </h1>
+  <p class="tui-text_body-m">
+    {{ "onboarding.step1.description" | translate }}
+  </p>
+
+  <div class="langs">
+    <div
+      *ngFor="let l of availableLangs"
+      class="lang"
+      (click)="selectLang(l.lang)"
+      [class.selected]="lang === l.lang">
+      <img src="/assets/images/flags/{{l.flag}}.png" alt="{{l.flag}} flag" />
+    </div>
+  </div>
+
+  <button
+    (click)="next()"
+    tuiButton
+    class="btn-primary"
+    type="button"
+    appearance="custom">
+    {{ "common.actions.continue" | translate }}
+  </button>
+</div>
+

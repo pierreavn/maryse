@@ -17,6 +17,12 @@
       "f": "°F"
     }
   },
+  "onboarding": {
+    "step1": {
+      "title": "Welcome on Maryse!",
+      "description": "First of all, select your language:"
+    }
+  },
   "recipe": {
     "steps": {
       "title": "Preparation",

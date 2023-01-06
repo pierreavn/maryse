@@ -9,6 +9,10 @@ const routes: Routes = [
     component: LandingComponent,
   },
   {
+    path: 'onboarding',
+    loadChildren: () => import('./onboarding/onboarding.module').then(m => m.OnboardingModule),
+  },
+  {
     path: ':repoProvider/:repoOwner/:repoName',
     loadChildren: () => import('./cookbook/cookbook.module').then(m => m.CookbookModule),
   },

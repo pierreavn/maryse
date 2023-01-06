@@ -1,0 +1,41 @@
+<div class="container">
+  <h1 class="tui-text_h3">Maryse</h1>
+  <p class="tui-text_body-m">{{ "landing.intro" | translate }}</p>
+  <form
+    class="b-form"
+    [formGroup]="form">
+    <tui-input formControlName="repoUrl">
+      {{ "landing.repoUrl" | translate }}
+      <input
+        tuiTextfield
+        type="url"
+        required
+        autofocus
+        (keydown.enter)="submit()" />
+    </tui-input>
+  </form>
+  <tui-notification
+    *ngIf="isInvalid"
+    status="error"
+    class="tui-space_top-4">
+    The repository URL is invalid or provider is not supported yet
+  </tui-notification>
+  <br/>
+  <button
+    (click)="submit()"
+    tuiButton
+    type="button"
+    appearance="custom"
+    class="btn-primary">
+    {{ "common.actions.continue" | translate }}
+  </button>
+  <br/><br/>
+  <button
+    (click)="openDemo()"
+    tuiButton
+    type="button"
+    appearance="outline"
+    class="tui-space_right-3 tui-space_bottom-3">
+    {{ "landing.openDemo" | translate }}
+  </button>
+</div>

@@ -1,0 +1,40 @@
+@import "src/styles/variables.scss";
+
+.container {
+  margin: 0 2rem;
+}
+
+ng-lottie {
+  margin-top: -1rem;
+  display: block;
+  margin-bottom: -3rem;
+}
+
+.langs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+
+  & .lang {
+    margin: 0 1.5rem;
+    cursor: pointer;
+    border: 4px solid transparent;
+    border-radius: 10px;
+    padding: 4px;
+    padding-bottom: 0;
+
+    & img {
+      width: 70px;
+    }
+
+    &.selected {
+      border-color: $color-primary;
+    }
+  }
+}
+
+button {
+  width: 100%;
+}

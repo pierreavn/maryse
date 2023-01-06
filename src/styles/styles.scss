@@ -1,9 +1,11 @@
+@import "./variables.scss";
+
 * {
   box-sizing: border-box;
 }
 
 html {
-  background-color: rgba(244, 87, 37, 0.02);
+  background-color: rgba(163, 177, 138, 0.05);
 }
 
 tui-badge i-tabler {
@@ -11,4 +13,9 @@ tui-badge i-tabler {
   margin-top: 5px !important;
   margin-left: 4px !important;
   margin-right: 5px !important;
+}
+
+.btn-primary {
+  background-color: $color-primary-bg !important;
+  color: white !important;
 }
