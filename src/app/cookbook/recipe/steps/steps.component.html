@@ -1,7 +1,5 @@
-<div class="container">
-  <h2 class="tui-text_h6">
-    {{ "recipe.steps.title" | translate }}
-  </h2>
+<app-recipe-section
+  [title]="'recipe.steps.title' | translate">
   <div class="steps">
     <app-recipe-step
       *ngFor="let step of (recipe.steps ?? []); let i = index"
@@ -9,5 +7,8 @@
       [step]="step"
       [index]="i">
     </app-recipe-step>
+    <div class="its-ready tui-text_body-m">
+      {{ "recipe.steps.itsReady" | translate }}
+    </div>
   </div>
-</div>
+</app-recipe-section>

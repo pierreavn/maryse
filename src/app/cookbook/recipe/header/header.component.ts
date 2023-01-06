@@ -13,9 +13,14 @@ export class RecipeHeaderComponent implements OnChanges {
 
   pictureIndex = 0;
 
+  notes?: string;
+
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['recipe']) {
       this.pictures = this.recipe.pictures ?? [];
+      this.notes = this.recipe.notes
+        ? this.recipe.notes.replaceAll('\n', '  \n')
+        : undefined;
     }
   }
 }

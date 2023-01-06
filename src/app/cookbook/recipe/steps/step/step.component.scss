@@ -1,6 +1,4 @@
-$step-content-offset: 1rem;
-$step-dot-radius: 6px;
-$step-dot-color: var(--tui-base-04);
+@import "src/styles/variables.scss";
 
 .step {
   position: relative;

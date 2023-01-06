@@ -1,12 +1,12 @@
-<div class="container">
+<app-recipe-section>
   <div class="header">
     <!-- Yields -->
     <div class="yields" *ngIf="hasYields">
-      <i-tabler name="minus" (click)="decreaseQuantity()"></i-tabler>
+      <i-tabler name="minus" (click)="decreaseQuantity()" class="btn-quantity"></i-tabler>
       <div class="tui-text_body-m">
         {{ quantity }}&nbsp;{{ quantity > 1 ? yieldsUnitPlural : yieldsUnitSingular }}
       </div>
-      <i-tabler name="plus" (click)="increaseQuantity()"></i-tabler>
+      <i-tabler name="plus" (click)="increaseQuantity()" class="btn-quantity"></i-tabler>
     </div>
 
     <!-- Units -->
@@ -18,7 +18,7 @@
   <!-- Ingredients -->
   <div class="ingredients" *ngIf="ingredients.length > 0">
     <div class="ingredient tui-text_body-m" *ngFor="let ingredient of ingredients">
-      <strong>{{ ingredient.amount }}<span *ngIf="ingredient.unit">{{ ("common.units." + ingredient.unit) | translate }}</span></strong> {{ ingredient.name }}
+      <strong><span *ngIf="ingredient.amount !== undefined">{{ ingredient.amount }}</span><span *ngIf="ingredient.unit">{{ ("common.units." + ingredient.unit) | translate }}</span></strong> {{ ingredient.name }}
     </div>
   </div>
-</div>
+</app-recipe-section>

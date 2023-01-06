@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren, ViewContainerRef, ViewRef } from '@angular/core';
+import { AfterViewInit, Component, Input, QueryList, ViewChildren, ViewContainerRef } from '@angular/core';
 import { Recipe } from 'src/app/core/services/recipes/recipe.interfaces';
 import { Gizmos } from '../gizmos/gizmos';
 import { GizmoComponent } from '../steps.interfaces';

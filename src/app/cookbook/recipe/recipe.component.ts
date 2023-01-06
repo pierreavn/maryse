@@ -29,7 +29,14 @@ export class RecipeComponent extends BaseAppComponent implements OnInit, OnDestr
   public ngOnInit(): void {
     this.recipeService.recipe$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe(recipe => this.recipe = recipe);
+      .subscribe(recipe => {
+        if (recipe) {
+          this.recipe = recipe;
+          console.log('Loaded recipe:', recipe);
+        } else {
+          this.recipe = null;
+        }
+      });
 
     this.route.params
       .pipe(takeUntil(this.destroyed$))

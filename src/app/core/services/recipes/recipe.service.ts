@@ -61,8 +61,8 @@ export class RecipeService {
       this.ingredients$.next(
         (recipe.ingredients ?? []).map(ingredient => ({
           name: ingredient.name,
-          initialAmount: ingredient.amount ?? 1,
-          amount: ingredient.amount ?? 1,
+          initialAmount: ingredient.amount,
+          amount: ingredient.amount,
           unit: ingredient.unit,
         }))
       );
@@ -97,6 +97,10 @@ export class RecipeService {
       // Update ingredients amounts
       this.ingredients$.next([
         ...this.ingredients$.value.map(ingredient => {
+          if (ingredient.initialAmount === undefined) {
+            return ingredient;
+          }
+
           let newAmount = ingredient.initialAmount * (newQuantity / (recipe.yields?.amount ?? 1));
           if (newAmount >= 10) {
             newAmount = Math.round(newAmount);

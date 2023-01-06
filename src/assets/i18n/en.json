@@ -20,7 +20,8 @@
   "recipe": {
     "steps": {
       "title": "Preparation",
-      "stepNo": "Step {{i}}"
+      "stepNo": "Step {{i}}",
+      "itsReady": "It's ready!"
     }
   }
 }

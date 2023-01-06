@@ -6,6 +6,7 @@ export type Recipe = {
   type?: string;
   difficulty?: string;
   pictures?: string[];
+  notes?: string;
   durations?: {
     preparation?: string;
     baking?: string;
@@ -39,8 +40,8 @@ export type RecipeInitError = {
 
 export type RecipeIngredient = {
   name: string;
-  initialAmount: number;
-  amount: number;
+  initialAmount?: number;
+  amount?: number;
   unit?: RecipeIngredientUnit;
 }
 

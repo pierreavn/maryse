@@ -6,6 +6,7 @@ type RecipeData_1_0 = {
   type?: string;
   difficulty?: string;
   pictures?: string[];
+  notes?: string;
   durations?: {
     preparation?: string;
     baking?: string;
@@ -45,6 +46,7 @@ export class RecipeSchema_1_0 implements RecipeSchema {
         type: "array",
         items: { type: "string" },
       },
+      notes: {type: "string"},
       durations: {
         type: "object",
         properties: {

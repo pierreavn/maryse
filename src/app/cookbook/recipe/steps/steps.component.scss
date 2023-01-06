@@ -1,14 +1,36 @@
+@import "src/styles/variables.scss";
+
 .container {
   padding: 0 1.5rem;
 }
 
 .steps {
-  margin-top: 2rem;
+  margin: 2rem 0;
   padding-left: 1rem;
   border-left: 1px solid var(--tui-base-04);
 
   & app-recipe-step {
     display: block;
     transform:  translateY(-.6rem);
+  }
+
+  & .its-ready {
+    font-weight: bold;
+    position: relative;
+    margin-top: -2rem;
+    transform: translateY(1rem);
+
+    &::before {
+      content: " ";
+      border-radius: 50%;
+      width: calc(2 * $step-dot-radius);
+      height: calc(2 * $step-dot-radius);
+      background-color: white;
+      border: 1px solid $step-dot-color;
+      position: absolute;
+      top: 5px;
+      left: calc(-#{$step-content-offset});
+      transform: translateX(-50%);
+    }
   }
 }

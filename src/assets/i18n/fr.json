@@ -26,7 +26,8 @@
   "recipe": {
     "steps": {
       "title": "Préparation",
-      "stepNo": "Étape {{i}}"
+      "stepNo": "Étape {{i}}",
+      "itsReady": "C'est prêt !"
     }
   }
 }

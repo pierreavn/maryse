@@ -1,5 +1,5 @@
 <tui-loader
-  class="inline-flex tui-space_right-2"
+  class="inline-flex"
   [showLoader]="loading"
   [inheritColor]="true"
   [overlay]="true">
@@ -7,9 +7,7 @@
     <!-- Recipe -->
     <div *ngIf="recipe && !loading">
       <app-recipe-header [recipe]="recipe"></app-recipe-header>
-      <br><hr><br>
       <app-recipe-ingredients [recipe]="recipe"></app-recipe-ingredients>
-      <br><hr><br>
       <app-recipe-steps [recipe]="recipe"></app-recipe-steps>
     </div>
 
