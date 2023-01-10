@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@angular/animations": "^15.0.0",
-    "@angular/cdk": "^15.0.0",
+    "@angular/cdk": "^15.0.4",
     "@angular/common": "^15.0.0",
     "@angular/compiler": "^15.0.0",
     "@angular/core": "^15.0.0",
@@ -32,6 +32,7 @@
     "js-yaml": "^4.1.0",
     "lottie-web": "^5.10.1",
     "marked": "^4.2.5",
+    "ng-gallery": "^8.0.1",
     "ngx-lottie": "^10.0.0",
     "ngx-markdown": "^15.0.0",
     "rxjs": "~7.5.0",

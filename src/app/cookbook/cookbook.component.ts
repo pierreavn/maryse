@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { BaseAppComponent } from '../core/base.component';
-import { RepoFileLoader } from '../core/repo-providers/repo-providers.interfaces';
-import { RepoProvidersService } from '../core/repo-providers/repo-providers.service';
 import { CookbookService } from '../core/services/cookbook/cookbook.service';
+import { Repository } from '../core/services/repository/repository';
+import { RepositoryService } from '../core/services/repository/repository.service';
 import { CookbookInvalidReasons } from './cookbook.interfaces';
 
 @Component({
@@ -13,7 +13,7 @@ import { CookbookInvalidReasons } from './cookbook.interfaces';
   styleUrls: ['./cookbook.component.scss']
 })
 export class CookbookComponent extends BaseAppComponent implements OnInit, OnDestroy {
-  constructor(private repoProvidersService: RepoProvidersService,
+  constructor(private repositoryService: RepositoryService,
     private cookbookService: CookbookService,
     private route: ActivatedRoute) {
     super();
@@ -27,18 +27,12 @@ export class CookbookComponent extends BaseAppComponent implements OnInit, OnDes
     this.route.params
       .pipe(takeUntil(this.destroyed$))
       .subscribe(params => {
-        const repoFileLoader = this.repoProvidersService.getFileLoader(
-          params['repoProvider'],
-          [
-            params['repoOwner'],
-            ...params['repoName'].split(this.repoProvidersService.slugDelimiter),
-          ],
-        );
+        const slug = `${params['repoProvider']}/${params['repoOwner']}/${params['repoName']}`;
+        const url = this.repositoryService.getUrlFromSlug(slug);
+        const repository = url ? this.repositoryService.getRepository(url, params['repoProvider']) : null;
 
-        const href = `/${params['repoProvider']}/${params['repoOwner']}/${params['repoName']}`;
-
-        if (repoFileLoader) {
-          this.loadCookbook(href, repoFileLoader);
+        if (repository) {
+          this.loadCookbook(`/${slug}`, repository);
         } else {
           this.invalidCookbook(CookbookInvalidReasons.REPO_SLUG);
         }
@@ -46,12 +40,12 @@ export class CookbookComponent extends BaseAppComponent implements OnInit, OnDes
   }
 
   /**
-   * Load the cookbook
+   * Load the cookbook with given repo provider
    * @param repoSlug
    */
-  public async loadCookbook(href: string, repoFileLoader: RepoFileLoader): Promise<void> {
+  public async loadCookbook(cookbookHref: string, repository: Repository): Promise<void> {
     try {
-      await this.cookbookService.init(href, repoFileLoader);
+      await this.cookbookService.init(cookbookHref, repository);
     } catch (error) {
       this.invalidCookbook(CookbookInvalidReasons.COOKBOOK_FORMAT);
     }

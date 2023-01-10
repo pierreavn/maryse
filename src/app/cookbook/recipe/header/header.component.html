@@ -1,15 +1,4 @@
-<tui-carousel
-  [draggable]="true"
-  [itemsCount]="1"
-  [(index)]="pictureIndex">
-  <ng-container *ngFor="let picture of pictures; let i = index">
-    <img
-      *tuiItem
-      draggable="false"
-      [src]="picture"
-      class="item item_active" />
-  </ng-container>
-</tui-carousel>
+<gallery [items]="pictures" [dots]="pictures.length > 1"></gallery>
 
 <app-recipe-section
   [noDivider]="true">

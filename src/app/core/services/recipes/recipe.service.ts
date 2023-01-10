@@ -31,12 +31,12 @@ export class RecipeService {
   public async init(slug: string): Promise<RecipeInitError | null> {
     this.reset();
 
-    if (!this.cookbookService.repoFileLoader) {
-      throw new Error("Cannot load recipe without repoFileLoader");
+    if (!this.cookbookService.repository) {
+      throw new Error("Cannot load recipe without repository");
     }
 
     // Load recipe data
-    const recipeData = await this.cookbookService.repoFileLoader(`recipes/${slug}.yml`);
+    const recipeData = await this.cookbookService.repository.loadFile(`recipes/${slug}.yml`);
     if (!recipeData) {
       return {
         reason: 'not-found',

@@ -1,9 +1,9 @@
 import Ajv from "ajv";
 import { Injectable } from "@angular/core";
-import { RepoFileLoader } from "../../repo-providers/repo-providers.interfaces";
 import { Cookbook, CookbookSchema } from "./cookbook.interfaces";
 import { CookbookSchema_1_0 } from "./schemas/1.0.cookbook-schema";
 import { BehaviorSubject } from "rxjs";
+import { Repository } from "../repository/repository";
 
 /**
  * Cookbook Service
@@ -20,19 +20,20 @@ export class CookbookService {
 
   public readonly cookbook$ = new BehaviorSubject<Cookbook | null>(null);
 
-  public repoFileLoader?: RepoFileLoader;
+  public get repository(): Repository | null {
+    return this.cookbook$.value?.repository ?? null;
+  }
 
   /**
    * Initialize cookbook
    * @param href
    * @param repoFileLoader
    */
-  public async init(href: string, repoFileLoader: RepoFileLoader): Promise<void> {
+  public async init(href: string, repository: Repository): Promise<void> {
     this.reset();
-    this.repoFileLoader = repoFileLoader;
 
     // Load cookbook data
-    const cookbookData = await this.repoFileLoader('cookbook.yml');
+    const cookbookData = await repository.loadFile('cookbook.yml');
 
     // Find latest schema
     const ajv = new Ajv();
@@ -40,7 +41,7 @@ export class CookbookService {
       .find(schema => ajv.validate(schema.schema, cookbookData));
 
     if (schema) {
-      const cookbook = schema.parse(cookbookData, href);
+      const cookbook = schema.parse(cookbookData, href, repository);
       this.cookbook$.next(cookbook);
     } else {
       throw new Error("Invalid cookbook");
@@ -51,7 +52,6 @@ export class CookbookService {
    * Reset cookbook
    */
   public reset(): void {
-    this.repoFileLoader = undefined;
     this.cookbook$.next(null);
   }
 }

@@ -19,3 +19,13 @@ Recipe Steps:
 
 ## Color Palette
 https://coolors.co/palette/dad7cd-a3b18a-588157-3a5a40-344e41
+
+## Improvements Ideas
+- Recipe
+  - Display durations
+  - Add tags
+  - Conversions
+- Ingredients
+  - Pictures
+  - Price
+- Comments on recipes with PR

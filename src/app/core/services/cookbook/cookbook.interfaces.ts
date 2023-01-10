@@ -1,7 +1,9 @@
 import { SchemaObject } from "ajv";
+import { Repository } from "../repository/repository";
 
 export type Cookbook = {
   _href: string;
+  repository: Repository;
   all: CookbookRecipe[];
   byCategory: Record<string, CookbookRecipe[]>;
   byType: Record<string, CookbookRecipe[]>;
@@ -30,5 +32,5 @@ export type CookbookRecipe = {
 export interface CookbookSchema {
   readonly version: string;
   readonly schema: SchemaObject;
-  parse: (data: any, cookbookHref: string) => Cookbook;
+  parse: (data: any, cookbookHref: string, repository: Repository) => Cookbook;
 };

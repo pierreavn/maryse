@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RepoProvidersService } from 'src/app/core/repo-providers/repo-providers.service';
 import { PreferencesService } from 'src/app/core/services/preferences/preferences.service';
+import { RepositoryService } from 'src/app/core/services/repository/repository.service';
 
 @Component({
   selector: 'app-step2-repo',
@@ -18,7 +18,7 @@ export class Step2RepoComponent {
 
   demoCookbook = 'https://github.com/pierreavn/recipes';
 
-  constructor(private repoProvidersService: RepoProvidersService,
+  constructor(private repositoryService: RepositoryService,
     private preferences: PreferencesService,
     private router: Router) {}
 
@@ -29,7 +29,7 @@ export class Step2RepoComponent {
     this.isInvalid = false;
     const repoUrl = this.form.get('repoUrl')?.value;
 
-    const slug = this.repoProvidersService.getSlugFromUrl(repoUrl);
+    const slug = this.repositoryService.getSlugFromUrl(repoUrl);
     if (slug) {
       this.preferences.savePreferences({
         repos: [

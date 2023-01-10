@@ -14,6 +14,7 @@ import { IconsModule } from './icons.module';
 import { RecipeSectionComponent } from './components/recipe-section/recipe-section.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { GalleryModule } from  'ng-gallery';
 
 // Note we need a separate function as it's required
 // by the AOT compiler.
@@ -64,11 +65,19 @@ const SharedModules: any[] = [
   imports: [
     ...SharedModules,
     LottieModule.forRoot({ player: playerFactory }),
+    GalleryModule.withConfig({
+      thumb: false,
+      dots: true,
+      dotsSize: 10,
+      counter: false,
+      imageSize: 'cover',
+    }),
   ],
   exports: [
     ...SharedComponents,
     ...SharedModules,
     LottieModule,
+    GalleryModule,
   ]
 })
 export class SharedModule { }

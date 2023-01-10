@@ -1,3 +1,4 @@
+import { Repository } from "../../repository/repository";
 import { Cookbook, CookbookRecipe, CookbookSchema } from "../cookbook.interfaces";
 
 type CookbookData_1_0 = {
@@ -69,9 +70,10 @@ export class CookbookSchema_1_0 implements CookbookSchema {
    * Parse cookbook
    * @param data
    */
-  public parse = (data: CookbookData_1_0, cookbookHref: string): Cookbook => {
+  public parse = (data: CookbookData_1_0, cookbookHref: string, repository: Repository): Cookbook => {
     const cookbook: Cookbook = {
       _href: cookbookHref,
+      repository,
       all: [],
       byCategory: {},
       byType: {},

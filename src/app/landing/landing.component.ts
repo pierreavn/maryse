@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RepoProvidersService } from '../core/repo-providers/repo-providers.service';
+import { RepositoryService } from '../core/services/repository/repository.service';
 
 @Component({
   selector: 'app-landing',
@@ -17,7 +17,7 @@ export class LandingComponent {
 
   demoCookbook = 'https://github.com/pierreavn/recipes';
 
-  constructor(private repoProvidersService: RepoProvidersService,
+  constructor(private repositoryService: RepositoryService,
     private router: Router) {}
 
   /**
@@ -27,7 +27,7 @@ export class LandingComponent {
     this.isInvalid = false;
     const repoUrl = this.form.get('repoUrl')?.value;
 
-    const slug = this.repoProvidersService.getSlugFromUrl(repoUrl);
+    const slug = this.repositoryService.getSlugFromUrl(repoUrl);
     if (slug) {
       this.router.navigateByUrl(`/${slug}`);
       return;

@@ -1,18 +1,15 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
-import { RepoFileLoader, RepoProvider } from "../repo-providers.interfaces";
+import { RepositoryProvider } from "../repository.interfaces";
 
 /**
  * GitHub Repository Provider
  */
 @Injectable({ providedIn: 'root' })
-export class GithubRepoProvider implements RepoProvider {
+export class GithubRepoProvider implements RepositoryProvider {
   readonly key = 'github';
   readonly name = 'GitHub';
 
-  protected repoRegex = /^((git|ssh|http(s)?)|(git@[\w\.]+))(:(\/\/)?)github\.com\/([\w\.@\:\-~]+)\/([\w\.@\:\-~]+)(\.git)?(\/)?$/;
-
-  constructor(private readonly http: HttpClient) {}
+  readonly repoRegex = /^((git|ssh|http(s)?)|(git@[\w\.]+))(:(\/\/)?)github\.com\/([\w\.@\:\-~]+)\/([\w\.@\:\-~]+)(\.git)?(\/)?$/;
 
   /**
    * Check if given URL is valid for GitHub
@@ -34,6 +31,15 @@ export class GithubRepoProvider implements RepoProvider {
   }
 
   /**
+   * Generate repo URL from repo Slug parts
+   * @param slugParts
+   * @returns
+   */
+  public getUrlFromSlugParts(slugParts: string[]): string {
+    return `https://github.com/${slugParts[0]}/${slugParts[1]}`;
+  }
+
+  /**
    * Check if given slug parts is valid for this provider
    * @param slugParts
    * @returns
@@ -43,17 +49,11 @@ export class GithubRepoProvider implements RepoProvider {
   }
 
   /**
-   * Get repository file loader from slugParts
+   * Get repository file url from path
    * @param slugParts
+   * @param path
    */
-  public getFileLoader(slugParts: string[]): RepoFileLoader {
-    return async (path: string) => {
-      try {
-        const url = `https://raw.githubusercontent.com/${slugParts[0]}/${slugParts[1]}/master/${path}`;
-        return await this.http.get<string>(url, {responseType: 'text' as any}).toPromise();
-      } catch (error) {
-        return undefined;
-      }
-    };
+  public getFileUrl(slugParts: string[], path: string): string {
+    return `https://raw.githubusercontent.com/${slugParts[0]}/${slugParts[1]}/main/${path}`;
   }
 }
