@@ -19,7 +19,8 @@
 
   &__title {
     text-transform: uppercase;
-    font-weight: bold;
     margin-bottom: .5rem;
+    color: var(--tui-text-02);
+    font-size: 13px;
   }
 }

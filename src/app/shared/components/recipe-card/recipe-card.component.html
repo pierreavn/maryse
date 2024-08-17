@@ -1,14 +1,9 @@
 <tui-island size="l" (click)="openRecipe()">
-  <div class="tui-island__content">
-      <div>
-        <img
-          *ngIf="recipe.pictures && recipe.pictures.length > 0"
-                    class="image"
-                    [src]="recipe.pictures[0]"
-                /><br/>
-          <p class="tui-island__category" *ngIf="recipe.category">{{ recipe.category }}</p>
-          <h3 class="tui-island__title">{{ recipe.name }}</h3>
-      </div>
-  </div>
+  <div
+    *ngIf="recipe.pictures && recipe.pictures.length > 0"
+    class="image"
+    [style.background-image]="'url(' + recipe.pictures[0] + ')'"></div>
+  <h3 class="tui-island__title">{{ recipe.name }}</h3>
+  <p class="tui-island__category" *ngIf="recipe.category">{{ recipe.category }}</p>
 </tui-island>
 

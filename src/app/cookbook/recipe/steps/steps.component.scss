@@ -19,6 +19,9 @@
     position: relative;
     margin-top: -2rem;
     transform: translateY(1rem);
+    color: var(--tui-text-02);
+    text-transform: uppercase;
+    font-size: 13px;
 
     &::before {
       content: " ";
