@@ -6,8 +6,7 @@ on:
       - main
 
 jobs:
-  # Build application
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,25 +18,12 @@ jobs:
         run: npm ci
       - name: Build Angular
         run: npm run build
-      - uses: actions/upload-pages-artifact@main
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          name: github-pages
           path: dist
-
-  # Deploy application
-  deploy:
-    needs: build
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
